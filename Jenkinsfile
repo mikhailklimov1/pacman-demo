@@ -1,3 +1,5 @@
+properties([pipelineTriggers([githubPush()])])
+
 pipeline {
     agent any
     options {
@@ -10,15 +12,28 @@ pipeline {
         IMAGE_NAME = "mikhailklimov/pacman-demo-test"
         REPOSITORY_ = "mikhailklimov1/pacman-demo-test"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
+        GITHUB_CREDENTIALS = credentials('github_creds')
     }
     stages {
-        stage("Git checkout") {
+//        stage("Git checkout") {
+//            steps {
+//                ws("${WORKSPACE_}") {
+//                git credentialsId: 'GITHUB_CREDENTIALS', url: "https://github.com/${REPOSITORY_}", branch: "${BRANCH_}" 
+//                // Check if it possible to add var instead of specific repo name here ^
+//                sh "echo Git Checkout Completed"
+//                }
+//            }
+//        }
+        stage('Checkout SCM') {
             steps {
-                ws("${WORKSPACE_}") {
-                git credentialsId: 'GITHUB_CREDENTIALS', url: "https://github.com/${REPOSITORY_}", branch: "${BRANCH_}" 
-                // Check if it possible to add var instead of specific repo name here ^
-                sh "echo Git Checkout Completed"
-                }
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${BRANCH_}"]],
+                    userRemoteConfigs: [[
+                    url: "https://github.com/${REPOSITORY_}",
+                    credentialsId: 'GITHUB_CREDENTIALS',
+                    ]]
+                ])
             }
         }
         stage ('Build image') {
