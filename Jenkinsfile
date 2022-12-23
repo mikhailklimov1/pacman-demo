@@ -58,7 +58,7 @@ pipeline {
     post {
         always {
             ws("${WORKSPACE_}") {
-                sh 'podman rmi ${REGISTRY_NAME}:${GIT_COMMIT}'
+                sh 'podman rmi ${IMAGE_NAME}:${GIT_COMMIT}'
                 sh 'podman logout docker.io'
             }
         }                
