@@ -10,7 +10,6 @@ pipeline {
         IMAGE_NAME = "mikhailklimov/pacman-demo-test"
         REPOSITORY_ = "mikhailklimov1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
-        GITHUB_CREDENTIALS = credentials('github_creds')
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
     stages {
