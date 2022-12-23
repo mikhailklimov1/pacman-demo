@@ -12,9 +12,9 @@ pipeline{
       stage('Building image') {
       steps{
         script {
-//            docker.withRegistry("${registry}", 'dockerhub_creds') {
-//            def app = docker.build("${repository}")
-//            app.push("${GIT_BRANCH}-${GIT_COMMIT}")
+            docker.withRegistry("${registry}", 'dockerhub_creds') {
+            def app = docker.build("${repository}")
+            app.push("${GIT_BRANCH}-${GIT_COMMIT}")
           }
         }
       }
