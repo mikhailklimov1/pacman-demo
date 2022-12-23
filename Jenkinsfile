@@ -14,7 +14,7 @@ pipeline {
     stages{
         stage("Git checkout") {
             steps{
-                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/$REPOSITORY_', branch: 'main'
+                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/$REPOSITORY_', branch: 'main'
 	            echo 'Git Checkout Completed'
             }
         }
