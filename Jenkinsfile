@@ -1,5 +1,7 @@
 properties([pipelineTriggers([githubPush()])])
 
+// Comment added to perform a commit
+
 pipeline {
     agent any
     options {
