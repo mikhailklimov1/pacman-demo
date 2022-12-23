@@ -29,14 +29,16 @@ pipeline {
                 sh 'echo $GIT_COMMIT'
             }
         }
-//        stage('Build image') {
-//            steps {
-//                ws("$WORKSPACE_") {    
-//		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
-//		    	echo 'Build Image Completed'
-//                }			
-//            }
-//        }
+        stage('Build image') {
+            steps {
+                ws($WORKSPACE_) {    
+		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
+		    	echo 'Build Image Completed'
+                }			
+            }
+        }
 
+        
+        
     }
 }
