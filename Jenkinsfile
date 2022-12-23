@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage("Git checkout") {
             steps {
-                ws(${WORKSPACE_}) {
+                ws("${WORKSPACE_}") {
                 git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
                 // Check if it possible to add var instead of specific repo name here ^
                 echo 'Git Checkout Completed'
@@ -31,7 +31,7 @@ pipeline {
         }
 //        stage('Build image') {
 //            steps {
-//                ws($WORKSPACE_) {    
+//                ws("$WORKSPACE_") {    
 //		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
 //		    	echo 'Build Image Completed'
 //                }			
