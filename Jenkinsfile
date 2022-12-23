@@ -3,40 +3,40 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
     }
-    environment{
-//        branch_ = "main"
-	WORKSPACE_ = "/volume/jenkins/workspace/"
+    environment {
+        //branch_ = "main"
+        WORKSPACE_ = "/volume/jenkins/workspace/"
         REGISTRY_= "https://registry-1.docker.io/"
         REPOSITORY_ = "mikhailklimo1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
         GITHUB_CREDENTIALS = credentials('github_creds')
-	DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
-    stages{
+    stages {
         stage("Git checkout") {
-            steps{
-		ws($WORKSPACE_) {
-			git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
-			// Check if it possible to add var instead of specific repo name here ^
-	        	echo 'Git Checkout Completed'
-		}
+            steps {
+                ws(${WORKSPACE_}) {
+                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
+                // Check if it possible to add var instead of specific repo name here ^
+                echo 'Git Checkout Completed'
+                }
             }
         }
-	stage ('Check vars'){
-            steps{
+        stage ('Check vars') {
+            steps {
                 sh 'echo $REGISTRY_'
                 sh 'echo $REPOSITORY_'
                 sh 'echo $GIT_COMMIT'
             }
         }
-	stage('Build image') {
-            steps {
-		    ws($WORKSPACE_) {    
-		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
-		    	echo 'Build Image Completed'
-		    }			
-            }
-        }
+//        stage('Build image') {
+//            steps {
+//                ws($WORKSPACE_) {    
+//		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
+//		    	echo 'Build Image Completed'
+//                }			
+//            }
+//        }
 
     }
 }
