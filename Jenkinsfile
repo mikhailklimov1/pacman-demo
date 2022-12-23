@@ -5,6 +5,7 @@ pipeline {
     }
     environment{
 //        branch_ = "main"
+	WORKSPACE_ = "/volume/jenkins/workspace/"
         REGISTRY_= "https://registry-1.docker.io/"
         REPOSITORY_ = "mikhailklimo1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
@@ -14,7 +15,7 @@ pipeline {
     stages{
         stage("Git checkout") {
             steps{
-		ws("/volume/jenkins/pacman-demo/") {
+		ws($WORKSPACE_) {
 			git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
 			// Check if it possible to add var instead of specific repo name here ^
 	        	echo 'Git Checkout Completed'
@@ -30,7 +31,7 @@ pipeline {
         }
 	stage('Build image') {
             steps {
-		    ws("/volume/jenkins/pacman-demo/") {    
+		    ws($WORKSPACE_) {    
 		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
 		    	echo 'Build Image Completed'
 		    }			
