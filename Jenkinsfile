@@ -18,6 +18,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
     stages {
+// This stage is needed to make a checkout manually 
 //        stage("Git checkout") {
 //            steps {
 //                ws("${WORKSPACE_}") {
