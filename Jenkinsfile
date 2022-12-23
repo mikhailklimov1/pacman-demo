@@ -16,7 +16,7 @@ pipeline {
         stage("Git checkout") {
             steps {
                 ws("${WORKSPACE_}") {
-                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
+			git credentialsId: 'GITHUB_CREDENTIALS', url: "https://github.com/${REPOSITORY_}", branch: 'main' 
                 // Check if it possible to add var instead of specific repo name here ^
                 echo 'Git Checkout Completed'
                 }
