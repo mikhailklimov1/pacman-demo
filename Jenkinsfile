@@ -4,7 +4,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
     }
     environment {
-        //branch_ = "main"
+        BRANCH_ = "main"
         WORKSPACE_ = "/volume/jenkins/workspace/"
         REGISTRY_= "docker.io"
         IMAGE_NAME = "mikhailklimov/pacman-demo-test"
@@ -17,7 +17,7 @@ pipeline {
         stage("Git checkout") {
             steps {
                 ws("${WORKSPACE_}") {
-                git credentialsId: 'GITHUB_CREDENTIALS', url: "https://github.com/${REPOSITORY_}", branch: 'main' 
+                git credentialsId: 'GITHUB_CREDENTIALS', url: "https://github.com/${REPOSITORY_}", branch: '${BRANCH_}' 
                 // Check if it possible to add var instead of specific repo name here ^
                 echo 'Git Checkout Completed'
                 }
