@@ -1,23 +1,22 @@
-pipeline{
+pipeline {
     agent any
-    options{
+    options {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
     }
     environment{
-        registry = "https://registry-1.docker.io/"
-        repository = "mikhailklimo1/pacman-demo-test"
+//        branch_ = "main"
+        REGISTRY_= "https://registry-1.docker.io/"
+        REPOSITORY_ = "mikhailklimo1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
+        GITHUB_CREDENTIALS = credentials('github_creds')
+		DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
     stages{
-      stage('Building image') {
-      steps{
-        script {
-//            docker.withRegistry("${registry}", 'dockerhub_creds') {
-//            def app = docker.build("${repository}")
-//            app.push("${GIT_BRANCH}-${GIT_COMMIT}")
-          }
+        stage("Git checkout") {
+            steps{
+                git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/${REPOSITORY_}', branch: 'main'
+	            echo 'Git Checkout Completed'
+            }
         }
-      }
     }
-  }
 }
