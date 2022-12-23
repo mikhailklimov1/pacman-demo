@@ -23,13 +23,6 @@ pipeline {
                 }
             }
         }
-        stage ('Check vars') {
-            steps {
-                sh 'echo ${REGISTRY_}'
-                sh 'echo ${REPOSITORY_}'
-                sh 'echo ${GIT_COMMIT}'
-            }
-        }
         stage ('Build image') {
             steps {
                 ws("${WORKSPACE_}") {    
