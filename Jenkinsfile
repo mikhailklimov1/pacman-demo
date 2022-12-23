@@ -6,7 +6,7 @@ pipeline {
     environment {
         //branch_ = "main"
         WORKSPACE_ = "/volume/jenkins/workspace/"
-        REGISTRY_= "https://registry-1.docker.io/"
+        REGISTRY_= "docker.io"
         IMAGE_NAME = "mikhailklimov/pacman-demo-test"
         REPOSITORY_ = "mikhailklimov1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
@@ -41,7 +41,7 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 ws("${WORKSPACE_}") {
-                    sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | podman login docker.io -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin'
+                    sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | podman login ${REGISTRY_} -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin'
                     echo 'Login Completed'   
                 }
             }           
@@ -59,7 +59,7 @@ pipeline {
         always {
             ws("${WORKSPACE_}") {
                 sh 'podman rmi ${IMAGE_NAME}:${GIT_COMMIT}'
-                sh 'podman logout docker.io'
+                sh 'podman logout ${REGISTRY_}'
             }
         }                
     }     
