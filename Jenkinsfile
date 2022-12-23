@@ -9,12 +9,13 @@ pipeline {
         REPOSITORY_ = "mikhailklimo1/pacman-demo-test"
         //registryCredential = credentials('dockerhub_creds') - dockerhub credintials "dockerhub_creds" should be added before running the pipeline
         GITHUB_CREDENTIALS = credentials('github_creds')
-		DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
+	DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
     stages{
         stage("Git checkout") {
             steps{
-		    git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/"{$REPOSITORY_}"', branch: 'main'
+		    git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
+		    // Check if it possible to add var instead of specific repo name here ^
 	            echo 'Git Checkout Completed'
             }
         }
