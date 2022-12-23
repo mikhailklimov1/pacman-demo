@@ -26,14 +26,16 @@ pipeline {
 //        }
         stage('Checkout SCM') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "${BRANCH_}"]],
-                    userRemoteConfigs: [[
-                    url: "https://github.com/${REPOSITORY_}",
-                    credentialsId: 'GITHUB_CREDENTIALS',
-                    ]]
-                ])
+                ws("${WORKSPACE_}") {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "${BRANCH_}"]],
+                        userRemoteConfigs: [[
+                            url: "https://github.com/${REPOSITORY_}",
+                            credentialsId: 'GITHUB_CREDENTIALS',
+                        ]]
+                    ])
+                }
             }
         }
         stage ('Build image') {
