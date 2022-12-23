@@ -25,6 +25,13 @@ pipeline {
                 sh 'echo $REPOSITORY_'
                 sh 'echo $GIT_COMMIT'
             }
-        }  
+        }
+	stage('Build image') {
+            steps {
+		    sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
+		    echo 'Build Image Completed'
+            }
+        }
+
     }
 }
