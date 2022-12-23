@@ -14,10 +14,17 @@ pipeline {
     stages{
         stage("Git checkout") {
             steps{
-		    git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
-		    // Check if it possible to add var instead of specific repo name here ^
-	            echo 'Git Checkout Completed'
+		git credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/mikhailklimov1/pacman-demo-test', branch: 'main' 
+		// Check if it possible to add var instead of specific repo name here ^
+	        echo 'Git Checkout Completed'
             }
         }
+	stage ('Check vars'){
+            steps{
+                sh 'echo $REGISTRY_'
+                sh 'echo $REPOSITORY_'
+                sh 'echo $GIT_COMMIT'
+            }
+        }  
     }
 }
