@@ -8,13 +8,13 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
     }
     environment {
-        BRANCH_ = "main"
         WORKSPACE_ = "/volume/jenkins/workspace/"
-        REGISTRY_= "docker.io"
         IMAGE_NAME = "mikhailklimov/pacman-demo-test"
         REPOSITORY_ = "mikhailklimov1/pacman-demo-test"
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
+        BRANCH_ = "main"
         GITHUB_CREDENTIALS = credentials('github_creds')
+        REGISTRY_= "docker.io"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_creds')
     }
     stages {
 //        stage("Git checkout") {
