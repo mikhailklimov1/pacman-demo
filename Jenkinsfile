@@ -1,6 +1,7 @@
 properties([pipelineTriggers([githubPush()])])
 
-// Comment added to perform a commit
+// Comment 1 added to perform a commit
+// Comment 2 added to perform a commit
 
 pipeline {
     agent any
