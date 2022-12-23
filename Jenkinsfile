@@ -28,8 +28,10 @@ pipeline {
         }
 	stage('Build image') {
             steps {
-		    sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
-		    echo 'Build Image Completed'
+		    ws("/volume/jenkins") {    
+		    	sh 'podman build -t $REPOSITORY_:$GIT_COMMIT .'
+		    	echo 'Build Image Completed'
+		    }			
             }
         }
 
