@@ -70,7 +70,7 @@ pipeline {
     post {
         always {
             ws("${WORKSPACE_}") {
-                sh "podman rmi ${IMAGE_NAME}:${GIT_COMMIT}"
+//                sh "podman rmi ${IMAGE_NAME}:${GIT_COMMIT}"
                 sh "podman logout ${REGISTRY_}"
             }
         }                
